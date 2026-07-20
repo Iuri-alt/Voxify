@@ -110,17 +110,36 @@ def deletar_arquivo(
 
 @router.post("/upload", response_model=schemas.ArquivoUploadResponse)
 def upload_arquivo(
-        arquivo: UploadFile = File(...),
-        db: Session = Depends(get_db),
-        usuario: models.User = Depends(obter_usuario_atual),
+    arquivo: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    usuario: models.User = Depends(obter_usuario_atual),
 ):
     nome_arquivo = validar_audio(arquivo)
+
     try:
+        print("=== INICIANDO UPLOAD ===")
+
+        print("Enviando para o Supabase Storage...")
         url = upload_audio(arquivo)
+        print("✅ Upload realizado:", url)
+
         arquivo.file.seek(0)
+
+        print("Enviando para o Azure Speech...")
         texto = transcrever_audio(arquivo)
+        print("✅ Transcrição concluída.")
+
     except Exception as error:
-        raise HTTPException(status_code=status.HTTP_502_BAD_GATEWAY, detail="Não foi possível processar o áudio agora.") from error
+        import traceback
+
+        traceback.print_exc()
+        print("ERRO:", repr(error))
+
+        raise HTTPException(
+            status_code=502,
+            detail=str(error)
+        )
+
     novo_arquivo = models.Arquivo(
         usuario_id=usuario.id,
         nome_do_audio=nome_arquivo,
@@ -128,6 +147,7 @@ def upload_arquivo(
         tipo_arquivo=arquivo.content_type,
         status="enviado"
     )
+
     db.add(novo_arquivo)
     db.commit()
     db.refresh(novo_arquivo)
@@ -137,7 +157,11 @@ def upload_arquivo(
         texto=texto,
         idioma="pt"
     )
+
     db.add(nova_transcricao)
     db.commit()
 
-    return {**schemas.ArquivoResponse.model_validate(novo_arquivo).model_dump(), "texto": texto}
+    return {
+        **schemas.ArquivoResponse.model_validate(novo_arquivo).model_dump(),
+        "texto": texto,
+    }
