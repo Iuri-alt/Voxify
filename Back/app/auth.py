@@ -28,15 +28,26 @@ def obter_usuario_atual(
     invalid = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Sessão inválida ou expirada.")
     if credentials is None or credentials.scheme.lower() != "bearer":
         raise invalid
+    
     try:
-        payload = jwt.decode(credentials.credentials, get_jwt_secret_key(), algorithms=[JWT_ALGORITHM])
+        payload = jwt.decode(
+            credentials.credentials,
+            get_jwt_secret_key(),
+            algorithms=[JWT_ALGORITHM],
+        )
+        print("TOKEN PAYLOAD:", payload)
+
         usuario_id = payload.get("id")
         token_type = payload.get("type")
+
     except JWTError as error:
-        raise invalid from error
+        print("JWT ERROR:", error)
+        raise invalid
+
     if not isinstance(usuario_id, int) or token_type != "access":
         raise invalid
     usuario = db.get(models.User, usuario_id)
     if usuario is None:
         raise invalid
+    print("USUÁRIO:", usuario)
     return usuario
