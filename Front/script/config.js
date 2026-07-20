@@ -1,1 +1,1 @@
-window.VOXIFY_API_URL = "http://localhost:8000";
+window.VOXIFY_API_URL = "https://voxify-api-lgv4.onrender.com";
