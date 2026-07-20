@@ -4,8 +4,8 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, status
 from sqlalchemy.orm import Session
 from app import models, schemas
 from app.database import get_db
-from Back.app.services.upload_audio import upload_audio
-from Back.app.services.transcription_service import transcrever_audio
+from app.services.upload_audio import upload_audio
+from app.services.transcription_service import transcrever_audio
 from app.auth import obter_usuario_atual
 
 router = APIRouter(

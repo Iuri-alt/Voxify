@@ -3,9 +3,9 @@ import os
 from fastapi import FastAPI, Request
 from app.database import Base, engine
 import app.models
-from Back.app.routers import usuarios
-from Back.app.routers import autenticacao
-from Back.app.routers import arquivo_upload
+from app.routers import usuarios
+from app.routers import autenticacao
+from app.routers import arquivo_upload
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 from app.config import ALLOWED_ORIGINS, get_jwt_secret_key
