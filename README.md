@@ -1,6 +1,6 @@
 # Voxify
 
-Voxify é uma plataforma SaaS que utiliza Inteligência Artificial para transformar arquivos de áudio em texto de forma rápida, segura e intuitiva, oferecendo uma experiência moderna para transcrição automática.
+Voxify é uma plataforma SaaS que utiliza o Azure-Speech para transformar arquivos de áudio em texto de forma rápida, segura e intuitiva, oferecendo uma experiência moderna para a transcrição.
 
 # 🛠️ Tecnologias Utilizadas
 
@@ -22,8 +22,6 @@ Voxify é uma plataforma SaaS que utiliza Inteligência Artificial para transfor
 
 ![JWT](https://img.shields.io/badge/JWT-Authentication-orange?style=for-the-badge)
 
-![OpenAI](https://img.shields.io/badge/OpenAI-Whisper-412991?style=for-the-badge&logo=openai)
-
 </p>
 
 # ✨ Principais Funcionalidades
@@ -37,8 +35,8 @@ Voxify é uma plataforma SaaS que utiliza Inteligência Artificial para transfor
 ---
 ## 🎙️ Transcrição de Áudios
 - Upload de arquivos de áudio
-- Integração com a API da OpenAI
-- Conversão automática de áudio para texto
+- Integração com a Azure-speech
+- Conversão de áudio para texto
 - Armazenamento das transcrições
 - Histórico individual por usuário
 ---
@@ -222,8 +220,8 @@ O Voxify utiliza serviços em nuvem para garantir maior disponibilidade e escala
 ### Banco de Dados
 - PostgreSQL
 - Supabase Cloud
-### Inteligência Artificial
-- API da OpenAI
+### Trascrição
+- Azure-speech
 ### Frontend
 - HTML5
 - CSS3
