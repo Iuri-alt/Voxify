@@ -1,0 +1,37 @@
+[project]
+name = "landing-page"
+version = "0.1.0"
+description = "Backend da Landing Page de Transcrição"
+requires-python = ">=3.11"
+
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "sqlalchemy",
+    "alembic",
+    "psycopg[binary]",
+    "psycopg2-binary",
+    "pydantic[email]",
+    "python-jose[cryptography]",
+    "passlib[argon2]==1.7.4",
+    "argon2-cffi",
+    "python-multipart",
+    "python-dotenv",
+    "supabase",
+    "azure-cognitiveservices-speech"
+]
+
+[tool.uv]
+package = false
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]
+exclude = ["alembic*"]

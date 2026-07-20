@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src http://127.0.0.1:8000 http://localhost:8000; base-uri 'self'; form-action 'self'; frame-ancestors 'none'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="stylesheet" href="style/login.css">
+    <title>Entrar — Voxify</title>
+  </head>
+  <body>
+    <main class="container_login">
+      <form class="card_login" data-login-form>
+        <a class="cabecalho_login" href="index.html" aria-label="Voltar à página inicial"><img class="logo_login" src="assets/Logo_Voxify.png" alt="Voxify"></a>
+        <div class="input_login"><label class="nome_campo" for="email">E-mail</label><input id="email" class="campo_login" type="email" placeholder="Digite seu e-mail" autocomplete="email" required></div>
+        <div class="input_login"><label class="nome_campo" for="senha">Senha</label><input id="senha" class="campo_login" type="password" placeholder="Digite sua senha" autocomplete="current-password" maxlength="128" required></div>
+        <div class="opcoes"><label><input type="checkbox" name="lembrar"> <span class="checkbox_lembrar">Lembrar-me</span></label><a class="senha" href="registro.html">Criar acesso</a></div>
+        <p class="mensagem-formulario" aria-live="polite"></p>
+        <button class="botao_login_1" type="submit">Entrar</button>
+        <p class="cadastro">Não tem uma conta? <a class="conta" href="registro.html">Criar conta</a></p>
+      </form>
+    </main>
+    <div id="modal-sessao" class="modal-sessao">
+      <div class="modal-conteudo">
+        <h2>Sessão quase expirada</h2>
+        <p>
+            Você está há algum tempo sem utilizar o sistema.
+            Sua sessão será encerrada em aproximadamente 1 minuto.
+        </p>
+        <button id="continuar-sessao">
+            Continuar conectado
+        </button>
+      </div>
+    </div>
+    <script src="script/config.js" defer></script>
+    <script src="script/api.js" defer></script>
+    <script src="script/auth.js" defer></script>
+    <script src="script/login.js" defer></script>
+    <script src="script/session.js" defer></script>
+  </body>
+</html>

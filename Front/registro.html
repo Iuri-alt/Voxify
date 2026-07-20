@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src http://127.0.0.1:8000 http://localhost:8000; base-uri 'self'; form-action 'self'; frame-ancestors 'none'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="stylesheet" href="style/registro.css">
+    <title>Criar conta — Voxify</title>
+  </head>
+  <body>
+    <main class="container_registro">
+      <div class="cabecalho_registro"><a href="index.html"><img class="logo_registro" src="assets/Logo_Voxify.png" alt="Voxify"></a><h1 class="titulo_registro">Crie sua conta grátis</h1></div>
+      <form class="card_registro" data-register-form>
+        <div class="input_registro"><label class="nome_input" for="nome">Nome completo</label><input id="nome" class="campo_login" name="nome" type="text" placeholder="Digite seu nome" autocomplete="name" required></div>
+        <div class="input_registro"><label class="nome_input" for="email-registro">E-mail</label><input id="email-registro" class="campo_login" name="email" type="email" placeholder="Digite seu e-mail" autocomplete="email" required></div>
+        <div class="input_registro"><label class="nome_input" for="senha-registro">Senha</label><input id="senha-registro" class="campo_login" name="senha" type="password" placeholder="Crie uma senha forte" autocomplete="new-password" minlength="12" maxlength="128" required></div>
+        <div class="input_registro"><label class="nome_input" for="confirmar-senha">Confirmar senha</label><input id="confirmar-senha" class="campo_login" name="confirmarSenha" type="password" placeholder="Repita sua senha" autocomplete="new-password" minlength="12" maxlength="128" required></div>
+        <p class="mensagem-formulario" aria-live="polite"></p>
+        <button type="submit" class="botao_registro">Criar conta</button>
+        <p class="cadastro_registro">Já tem uma conta? <a class="botao_login" href="login.html">Fazer login</a></p>
+      </form>
+    </main>
+    <div id="modal-sessao" class="modal-sessao">
+      <div class="modal-conteudo">
+        <h2>Sessão quase expirada</h2>
+        <p>
+            Você está há algum tempo sem utilizar o sistema.
+            Sua sessão será encerrada em aproximadamente 1 minuto.
+        </p>
+        <button id="continuar-sessao">
+            Continuar conectado
+        </button>
+      </div>
+    </div>
+    <script src="script/config.js" defer></script>
+    <script src="script/api.js" defer></script>
+    <script src="script/register.js" defer></script>
+    <script src="script/registro.js" defer></script>
+    <script src="script/session.js" defer></script>
+  </body>
+</html>

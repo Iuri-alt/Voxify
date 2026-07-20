@@ -1,0 +1,55 @@
+@import url("variables.css");
+@import url("base_style.css");
+
+.header_dashboard { padding: 1rem clamp(1rem, 5vw, 4rem); background: #fff; box-shadow: 0 2px 12px rgb(0 0 0 / 5%); }
+.menu_dashboard { display: flex; align-items: center; justify-content: space-between; gap: 1rem; max-width: 82rem; margin: auto; }
+.logo_dashboard { display: block; width: min(9rem, 32vw); }
+.menu_dash_list, .botoes_acao { display: flex; align-items: center; gap: .75rem; }
+.menu_dash_iten { color: var(--cor-primaria); font-weight: 600; }
+.menu_dash_button, .botao_upload, .botao_limpar, .botao_download, .botao_reproduzir { border: 0; border-radius: var(--raio-peq); padding: .7rem 1rem; background: var(--cor-primaria); color: #fff; font-size: .9rem; font-weight: 600; transition: background-color var(--transicao), transform var(--transicao); }
+.menu_dash_button:hover, .botao_upload:hover, .botao_limpar:hover, .botao_download:hover, .botao_reproduzir:hover { background: var(--cor-secundaria); transform: translateY(-1px); }
+.container_dashboard { max-width: 82rem; margin: 0 auto; padding: clamp(2rem, 5vw, 4rem) 1.25rem; }
+.cabecalho_dashboard { margin-bottom: 2rem; text-align: center; }
+.titulo_dashboard { font-size: clamp(2rem, 4vw, 3rem); }
+.subtitulo_dashboard { margin-top: .5rem; color: var(--texto-secundaria); font-size: 1.05rem; }
+.cards_dashboard { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.card_upload, .card_texto_traduzido, .audio_transcritos { padding: clamp(1.25rem, 3vw, 2rem); background: var(--bg_card); border-radius: var(--raio-grossa); box-shadow: var(--sombra-card); }
+.card_upload, .campotexto { display: flex; flex-direction: column; gap: 1rem; }
+.titulo_card_upload, .titulo_card_texto, .titulo_audio_transcritos { font-size: 1.3rem; }
+.upload_area { display: grid; min-height: 23rem; place-items: center; border: 2px dashed var(--cor-campos); border-radius: var(--raio-gde); padding: 1.25rem; transition: border-color var(--transicao), background-color var(--transicao); }
+.upload_area:hover, .upload_area:focus, .upload_area.dragover { border-color: var(--cor-secundaria); background: rgb(4 51 191 / 5%); outline: none; }
+.upload_content { display: flex; flex-direction: column; align-items: center; gap: .9rem; text-align: center; color: var(--texto-secundaria); }
+.icon_upload { color: var(--cor-secundaria); font-size: 3.5rem; line-height: 1; }
+.upload_formato { font-size: .8rem; }
+.mensagem-upload { min-height: 1.2rem; font-size: .82rem; color: var(--cor-primaria); }
+.campo_traduzido { width: 100%; min-height: 23rem; padding: 1rem; resize: vertical; border: 1px solid var(--cor-campos); border-radius: var(--raio-peq); font-size: 1rem; line-height: 1.5; }
+.campo_traduzido:focus { border-color: var(--cor-secundaria); box-shadow: 0 0 0 3px rgb(4 51 191 / 12%); }
+.footer_texto { display: flex; align-items: center; justify-content: space-between; gap: 1rem; color: var(--texto-secundaria); font-size: .85rem; }
+.botao_limpar { background: #667085; }
+.audio_transcritos { margin-top: 1.5rem; }
+.lista_audios { display: flex; flex-direction: column; gap: .75rem; margin-top: 1rem; }
+.audio_item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem; border: 1px solid var(--cor-campos); border-radius: var(--raio-peq); }
+.nome_audio { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.lista-vazia { color: var(--texto-secundaria); }
+.modal-sessao{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+.modal-conteudo{
+    background:#fff;
+    padding:30px;
+    border-radius:12px;
+    max-width:420px;
+    text-align:center;
+}
+.modal-conteudo button{
+    margin-top:20px;
+}
+@media (max-width: 800px) { .cards_dashboard { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .menu_dash_iten { display: none; } .footer_texto, .audio_item { align-items: stretch; flex-direction: column; } .botoes_acao { display: grid; grid-template-columns: 1fr 1fr; } .botao_reproduzir { width: 100%; } }
+@media (max-width: 360px) { .menu_dash_list { gap: .35rem; } .menu_dash_button { padding-inline: .7rem; } .botoes_acao { grid-template-columns: 1fr; } }

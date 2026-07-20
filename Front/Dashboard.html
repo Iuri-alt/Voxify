@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src http://127.0.0.1:8000 http://localhost:8000; base-uri 'self'; form-action 'self'; frame-ancestors 'none'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="stylesheet" href="style/dashboard.css">
+    <title>Dashboard — Voxify</title>
+  </head>
+  <body>
+    <header class="header_dashboard">
+      <nav class="menu_dashboard" aria-label="Navegação do dashboard">
+        <a href="index.html"><img class="logo_dashboard" src="assets/Logo_Voxify.png" alt="Voxify"></a>
+        <div class="menu_dash_list">
+          <button class="menu_dash_button" type="button" data-logout>Sair</button>
+        </div>
+      </nav>
+    </header>
+    <main class="container_dashboard">
+      <section class="secao_upload" aria-labelledby="titulo-dashboard">
+        <div class="cabecalho_dashboard"><h1 id="titulo-dashboard" class="titulo_dashboard">Dashboard</h1><p class="subtitulo_dashboard">Envie seu áudio e mantenha a transcrição organizada.</p></div>
+        <div class="cards_dashboard">
+          <section class="card_upload"><h2 class="titulo_card_upload">Upload de áudio</h2><div class="upload_area" data-upload-area tabindex="0" role="button" aria-label="Selecionar arquivo de áudio"><input type="file" id="fileInput" accept="audio/mpeg,audio/wav,audio/x-m4a,audio/mp4" hidden><div class="upload_content"><div class="icon_upload" aria-hidden="true">☁</div><p class="upload_descricao">Arraste seu arquivo de áudio aqui</p><span>ou</span><button class="botao_upload" type="button" data-file-button>Selecionar arquivo</button><small class="upload_formato">MP3, WAV ou M4A até 100 MB</small><p class="mensagem-upload" data-upload-message aria-live="polite"></p></div></div></section>
+          <section class="card_texto_traduzido"><div class="campotexto"><h2 class="titulo_card_texto">Texto transcrito</h2><textarea class="campo_traduzido" id="texto" placeholder="O texto transcrito aparecerá aqui." aria-label="Texto transcrito"></textarea><div class="footer_texto"><span id="contador">0 caracteres</span><div class="botoes_acao"><button class="botao_limpar" type="button" data-clear-text>Limpar texto</button><button class="botao_download" type="button" data-download-text>Baixar texto</button></div></div></div></section>
+        </div>
+      </section>
+      <section id="transcricoes" class="audio_transcritos" aria-labelledby="titulo-transcricoes"><h2 id="titulo-transcricoes" class="titulo_audio_transcritos">Transcrições recentes</h2><div class="lista_audios" data-audio-list><p class="lista-vazia">Nenhum áudio enviado ainda.</p></div></section>
+    </main>
+    <div id="modal-sessao" class="modal-sessao">
+      <div class="modal-conteudo">
+        <h2>Sessão quase expirada</h2>
+        <p>
+            Você está há algum tempo sem utilizar o sistema.
+            Sua sessão será encerrada em aproximadamente 1 minuto.
+        </p>
+        <button id="continuar-sessao">
+            Continuar conectado
+        </button>
+      </div>
+    </div>
+    <script src="script/config.js" defer></script>
+    <script src="script/api.js" defer></script>
+    <script src="script/upload.js" defer></script>
+    <script src="script/dashboard.js" defer></script>
+    <script src="script/session.js" defer></script>
+  </body>
+</html>

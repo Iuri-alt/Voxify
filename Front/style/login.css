@@ -1,0 +1,37 @@
+@import url("variables.css");
+@import url("base_style.css");
+
+.container_login { display: grid; min-height: 100vh; place-items: center; padding: 1.25rem; }
+.card_login { display: flex; flex-direction: column; align-items: center; width: min(100%, 26rem); gap: 1rem; padding: clamp(1.5rem, 5vw, 2.5rem); background: var(--bg_card); border-radius: var(--raio-grossa); box-shadow: var(--sombra-card); }
+.cabecalho_login { display: block; margin-bottom: .75rem; text-align: center; }
+.logo_login { width: min(11rem, 70vw); }
+.input_login { display: flex; flex-direction: column; width: 100%; gap: .4rem; }
+.nome_campo, .checkbox_lembrar { color: var(--texto-quaternaria); font-size: .9rem; font-weight: 500; }
+.campo_login { width: 100%; padding: .8rem .9rem; border: 1px solid var(--cor-campos); border-radius: var(--raio-peq); font-size: 1rem; }
+.campo_login:focus { border-color: var(--cor-secundaria); box-shadow: 0 0 0 3px rgb(4 51 191 / 12%); }
+.opcoes { display: flex; justify-content: space-between; gap: .75rem; width: 100%; font-size: .9rem; }
+.senha, .conta { color: var(--cor-primaria); font-weight: 600; }
+.botao_login_1 { width: 100%; padding: .85rem; border: 0; border-radius: var(--raio-peq); background: var(--cor-primaria); color: #fff; font-size: 1rem; font-weight: 600; transition: background-color var(--transicao); }
+.botao_login_1:hover { background: var(--cor-secundaria); }
+.cadastro { color: var(--texto-secundaria); font-size: .9rem; text-align: center; }
+.mensagem-formulario { min-height: 1.2rem; color: #b42318; font-size: .875rem; text-align: center; }
+.modal-sessao{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+.modal-conteudo{
+    background:#fff;
+    padding:30px;
+    border-radius:12px;
+    max-width:420px;
+    text-align:center;
+}
+.modal-conteudo button{
+    margin-top:20px;
+}
+@media (max-width: 380px) { .card_login { padding: 1.25rem; } .opcoes { flex-direction: column; } }

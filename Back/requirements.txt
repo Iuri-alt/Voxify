@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+alembic
+sqlalchemy
+psycopg[binary]
+psycopg2-binary
+pydantic[email]
+python-jose[cryptography]
+passlib[argon2]==1.7.4
+argon2-cffi
+python-multipart
+python-dotenv
+supabase
+azure-cognitiveservices-speech
