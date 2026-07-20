@@ -1,6 +1,6 @@
 import uuid
 from fastapi import UploadFile
-from app.services import supabase
+from app.services.supabase import supabase
 
 BUCKET_NAME = "audio"
 
