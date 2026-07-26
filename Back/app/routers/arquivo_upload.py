@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, status
@@ -7,11 +8,16 @@ from app.database import get_db
 from app.services.upload_audio import upload_audio
 from app.services.transcription_service import transcrever_audio
 from app.auth import obter_usuario_atual
+from app.rate_limit import RateLimiter
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(
     prefix="/arquivos",
     tags=["arquivos"]
 )
+
+limitador_upload = RateLimiter(max_tentativas=10, janela_segundos=15 * 60)
 
 MAX_FILE_SIZE = 100 * 1024 * 1024
 FORMATOS_AUDIO = {
@@ -114,30 +120,18 @@ def upload_arquivo(
     db: Session = Depends(get_db),
     usuario: models.User = Depends(obter_usuario_atual),
 ):
+    limitador_upload.verificar(str(usuario.id))
     nome_arquivo = validar_audio(arquivo)
 
     try:
-        print("=== INICIANDO UPLOAD ===")
-
-        print("Enviando para o Supabase Storage...")
         url = upload_audio(arquivo)
-        print("✅ Upload realizado:", url)
-
         arquivo.file.seek(0)
-
-        print("Enviando para o Azure Speech...")
         texto = transcrever_audio(arquivo)
-        print("✅ Transcrição concluída.")
-
-    except Exception as error:
-        import traceback
-
-        traceback.print_exc()
-        print("ERRO:", repr(error))
-
+    except Exception:
+        logger.exception("Falha ao processar upload/transcrição do arquivo %s.", nome_arquivo)
         raise HTTPException(
             status_code=502,
-            detail=str(error)
+            detail="Não foi possível processar o áudio. Tente novamente mais tarde."
         )
 
     novo_arquivo = models.Arquivo(

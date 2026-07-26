@@ -121,13 +121,18 @@ voxify/
 ├── .github/
 │
 ├── Back/
-│   ├── .idea/
-│   ├── .venv/
 │   ├── alembic/
 │   ├── app/
-│   ├── routers/
-│   ├── services/
-│   ├── uploads/
+│   │   ├── routers/
+│   │   ├── services/
+│   │   ├── auth.py
+│   │   ├── config.py
+│   │   ├── database.py
+│   │   ├── main.py
+│   │   ├── models.py
+│   │   ├── rate_limit.py
+│   │   ├── schemas.py
+│   │   └── security.py
 │   ├── .env
 │   ├── .env.example
 │   ├── alembic.ini
@@ -163,12 +168,49 @@ O Backend foi desenvolvido utilizando FastAPI seguindo uma arquitetura em camada
 | Pasta   | Responsabilidade |
 |---------|------------------|
 | app     | Inicialização da aplicação |
-| routers | Endpoints da API |
-| services| Regras de negócio |
-| uploads | Armazenamento temporário dos arquivos |
+| app/routers | Endpoints da API |
+| app/services| Regras de negócio e integrações (Supabase, Azure Speech) |
 | alembic | Controle de migrações |
 | .env    | Variáveis de ambiente |
 | requirements.txt | Dependências do projeto |
+---
+# 🚀 Como Rodar o Projeto
+
+### Pré-requisitos
+- Python 3.12+
+- Uma instância PostgreSQL (local ou via Supabase)
+- Credenciais de Azure Speech e Supabase
+
+### Backend
+```bash
+cd Back
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+
+cp .env.example .env
+# preencha o .env com suas credenciais (veja a tabela abaixo)
+
+alembic upgrade head
+uvicorn app.main:app --reload
+```
+A API sobe em `http://127.0.0.1:8000`.
+
+### Variáveis de ambiente (`Back/.env`)
+
+| Variável | Descrição |
+|----------|-----------|
+| `DATABASE_URL` | String de conexão do PostgreSQL |
+| `AUTO_CREATE_SCHEMA` | `true` cria as tabelas automaticamente (uso local apenas; em produção use `alembic upgrade head`) |
+| `JWT_SECRET_KEY` | Chave usada para assinar os tokens JWT (mín. 32 caracteres aleatórios) |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | Tempo de expiração do token de acesso |
+| `AZURE_SPEECH_KEY` / `AZURE_SPEECH_REGION` | Credenciais do Azure Speech-to-Text |
+| `SUPABASE_URL` / `SUPABASE_KEY` | Credenciais do Supabase (Storage e Postgres) |
+| `ALLOWED_ORIGINS` | Origens permitidas via CORS, separadas por vírgula |
+
+### Frontend
+O frontend é HTML/CSS/JS puro, sem build. Basta servir a pasta `Front/` com qualquer servidor estático (ex.: extensão Live Server do VS Code) e configurar a URL da API em `Front/script/config.js`.
+
 ---
 # 🎨 Organização do Frontend
 O Frontend foi desenvolvido utilizando HTML, CSS e JavaScript puro.

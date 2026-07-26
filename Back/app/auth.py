@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime, timedelta, timezone
 
 from fastapi import Depends, HTTPException, status
@@ -10,6 +11,7 @@ from app import models
 from app.config import ACCESS_TOKEN_EXPIRE_MINUTES, JWT_ALGORITHM, get_jwt_secret_key
 from app.database import get_db
 
+logger = logging.getLogger(__name__)
 bearer_scheme = HTTPBearer(auto_error=False)
 
 def criar_token(dados: dict) -> str:
@@ -35,13 +37,11 @@ def obter_usuario_atual(
             get_jwt_secret_key(),
             algorithms=[JWT_ALGORITHM],
         )
-        print("TOKEN PAYLOAD:", payload)
-
         usuario_id = payload.get("id")
         token_type = payload.get("type")
 
-    except JWTError as error:
-        print("JWT ERROR:", error)
+    except JWTError:
+        logger.warning("Falha ao validar token JWT.")
         raise invalid
 
     if not isinstance(usuario_id, int) or token_type != "access":
@@ -49,5 +49,4 @@ def obter_usuario_atual(
     usuario = db.get(models.User, usuario_id)
     if usuario is None:
         raise invalid
-    print("USUÁRIO:", usuario)
     return usuario
