@@ -1,22 +1,48 @@
 import os
 import time
 import tempfile
+import subprocess
 import azure.cognitiveservices.speech as speechsdk
 from fastapi import UploadFile
 from app.config import AZURE_SPEECH_KEY, AZURE_SPEECH_REGION
+
+
+def _converter_para_wav(caminho_origem: str) -> str:
+    caminho_wav = f"{caminho_origem}.wav"
+    try:
+        subprocess.run(
+            [
+                "ffmpeg", "-y", "-i", caminho_origem,
+                "-ac", "1", "-ar", "16000", "-sample_fmt", "s16",
+                caminho_wav,
+            ],
+            check=True,
+            capture_output=True,
+        )
+    except FileNotFoundError as error:
+        raise RuntimeError("ffmpeg não encontrado no servidor.") from error
+    except subprocess.CalledProcessError as error:
+        raise RuntimeError(
+            f"Falha ao converter áudio: {error.stderr.decode(errors='ignore')}"
+        ) from error
+    return caminho_wav
+
 
 def transcrever_audio(arquivo: UploadFile) -> str:
     extensao = os.path.splitext(arquivo.filename or ".mp3")[1]
 
     with tempfile.NamedTemporaryFile(delete=False, suffix=extensao) as temp:
         temp.write(arquivo.file.read())
-        caminho = temp.name
+        caminho_original = temp.name
 
+    caminho_wav = None
     try:
+        caminho_wav = _converter_para_wav(caminho_original)
+
         speech_config = speechsdk.SpeechConfig(subscription=AZURE_SPEECH_KEY, region=AZURE_SPEECH_REGION)
         speech_config.speech_recognition_language = "pt-BR"
-        
-        audio_config = speechsdk.audio.AudioConfig(filename=caminho)
+
+        audio_config = speechsdk.audio.AudioConfig(filename=caminho_wav)
         speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
         
         texto_completo = []
@@ -45,7 +71,10 @@ def transcrever_audio(arquivo: UploadFile) -> str:
         return " ".join(texto_completo).strip()
 
     finally:
-        try:
-            os.remove(caminho)
-        except OSError:
-            pass
+        for caminho in (caminho_original, caminho_wav):
+            if not caminho:
+                continue
+            try:
+                os.remove(caminho)
+            except OSError:
+                pass

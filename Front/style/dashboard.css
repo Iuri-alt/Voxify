@@ -21,7 +21,9 @@
 .upload_content { display: flex; flex-direction: column; align-items: center; gap: .9rem; text-align: center; color: var(--texto-secundaria); }
 .icon_upload { color: var(--cor-secundaria); font-size: 3.5rem; line-height: 1; }
 .upload_formato { font-size: .8rem; }
-.mensagem-upload { min-height: 1.2rem; font-size: .82rem; color: var(--cor-primaria); }
+.mensagem-upload { display: flex; align-items: center; justify-content: center; gap: .5rem; min-height: 1.2rem; font-size: .82rem; color: var(--cor-primaria); }
+.spinner-upload { width: 1rem; height: 1rem; border: 2px solid rgb(4 51 191 / 20%); border-top-color: var(--cor-primaria); border-radius: 50%; animation: girar-spinner .7s linear infinite; }
+@keyframes girar-spinner { to { transform: rotate(360deg); } }
 .campo_traduzido { width: 100%; min-height: 23rem; padding: 1rem; resize: vertical; border: 1px solid var(--cor-campos); border-radius: var(--raio-peq); font-size: 1rem; line-height: 1.5; }
 .campo_traduzido:focus { border-color: var(--cor-secundaria); box-shadow: 0 0 0 3px rgb(4 51 191 / 12%); }
 .footer_texto { display: flex; align-items: center; justify-content: space-between; gap: 1rem; color: var(--texto-secundaria); font-size: .85rem; }

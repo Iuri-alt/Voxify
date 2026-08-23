@@ -5,7 +5,16 @@
   const message = document.querySelector("[data-upload-message]");
   const allowed = ["audio/mpeg", "audio/wav", "audio/x-wav", "audio/x-m4a", "audio/mp4"];
 
-  const setMessage = (text) => { message.textContent = text; };
+  const setMessage = (text, loading = false) => {
+    message.textContent = "";
+    if (loading) {
+      const spinner = document.createElement("span");
+      spinner.className = "spinner-upload";
+      spinner.setAttribute("aria-hidden", "true");
+      message.appendChild(spinner);
+    }
+    message.appendChild(document.createTextNode(text));
+  };
   const submitFile = async (file) => {
     if (!file) return;
     if (!allowed.includes(file.type) && !/\.(mp3|wav|m4a)$/i.test(file.name)) return setMessage("Selecione um arquivo MP3, WAV ou M4A.");
@@ -14,7 +23,7 @@
     const formData = new FormData();
     formData.append("arquivo", file);
     button.disabled = true;
-    setMessage("Enviando e transcrevendo o áudio...");
+    setMessage("Enviando e transcrevendo o áudio...", true);
     try {
       const response = await api("/arquivos/upload", { method: "POST", body: formData });
       if (!response.ok) throw new Error(await getApiError(response, "Não foi possível enviar o áudio."));
