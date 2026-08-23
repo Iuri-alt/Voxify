@@ -2,6 +2,7 @@ import os
 import time
 import tempfile
 import subprocess
+import imageio_ffmpeg
 import azure.cognitiveservices.speech as speechsdk
 from fastapi import UploadFile
 from app.config import AZURE_SPEECH_KEY, AZURE_SPEECH_REGION
@@ -12,7 +13,7 @@ def _converter_para_wav(caminho_origem: str) -> str:
     try:
         subprocess.run(
             [
-                "ffmpeg", "-y", "-i", caminho_origem,
+                imageio_ffmpeg.get_ffmpeg_exe(), "-y", "-i", caminho_origem,
                 "-ac", "1", "-ar", "16000", "-sample_fmt", "s16",
                 caminho_wav,
             ],
