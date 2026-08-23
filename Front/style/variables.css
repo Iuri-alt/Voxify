@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+    /* ===== CORES ===== */
+    --cor-primaria: #020873;
+    --cor-secundaria: #0433BF;
+    --cor-icone: #0433BF60;
+    --cor-bg: #e5e5e5;
+    --texto-principal: #000;
+    --texto-secundaria: #8e9294;
+    --texto-terciaria: #ffffff;
+    --texto-quaternaria: #333131e5;
+    --bg_card: #ffffff;
+    --cor-campos: #b7acac;
+    /* ===== TIPOGRAFIA ===== */
+    --fonte-primaria: 'Roboto', sans-serif;
+    --tamanho-base: 1rem;
+    /* ===== ESPAÇAMENTOS ===== */
+    --espaco-xxs: 0.5rem;
+    --espaco-xs: 0.9em;
+    --espaco-sm: 1rem;
+    --espaco-md: 1.5rem;
+    --espaco-lg: 2rem;
+    --espaco-xl: 4rem;
+    /* ===== BORDAS ===== */
+    --raio-peq: 0.4rem;
+    --raio-med: 0.5rem;
+    --raio-gde: 0.8rem;
+    --raio-grossa: 1rem;
+    /* ===== TRANSIÇÕES ===== */
+    --transicao: 0.3s;
+    /* ===== SOMBRAS ===== */
+    --sombra-card: 0 10px 25px rgba(0,0,0,0.1);
+    --sombra-header: 0 10px 25px rgba(0,0,0,0.1);
+}

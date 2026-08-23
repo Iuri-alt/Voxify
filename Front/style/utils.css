@@ -1,0 +1,82 @@
+/* ===== FLEX ===== */
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex-between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    gap: var(--espaco-sm);
+}
+/* ===== CARD ===== */
+.card{
+    background: var(--bg_card);
+    border-radius: var(--raio-grossa);
+    box-shadow: var(--sombra-card);
+}
+/* ===== BOTÕES ===== */
+.btn{
+    padding: var(--espaco-sm) var(--espaco-md);
+    border: none;
+    border-radius: var(--raio-med);
+    color: var(--texto-terciaria);
+    cursor: pointer;
+    transition: var(--transicao);
+    font-size: var(--tamanho-base);
+}
+.btn-primary{
+    background-color: var(--cor-secundaria);
+}
+.btn-primary:hover{
+    background-color: var(--cor-primaria);
+}
+.btn-outline{
+    background: transparent;
+    border: 2px solid var(--cor-secundaria);
+    color: var(--cor-secundaria);
+}
+.btn-outline:hover{
+    background-color: var(--cor-secundaria);
+    color: var(--texto-terciaria);
+}
+/* Botões por tamanho */
+.btn-sm{ font-size: 0.8rem; }
+.btn-md{ font-size: 1rem; }
+.btn-lg{ font-size: 1.3rem; }
+/* ===== INPUTS ===== */
+.input-field{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+.input-control{
+    padding: 0.8rem;
+    border-radius: var(--raio-gde);
+    border: 1px solid var(--cor-campos);
+    font-size: 0.9rem;
+    transition: var(--transicao);
+}
+.input-control:focus{
+    border-color: var(--cor-secundaria);
+    box-shadow: 0 0 0 3px rgba(4, 51, 191, 0.1);
+}
+/* ===== TEXTOS ===== */
+.text-primary{ color: var(--texto-principal); }
+.text-secondary{ color: var(--texto-secundaria); }
+.text-center{ text-align: center; }
+/* ===== ESPAÇAMENTOS ===== */
+.mt-sm{ margin-top: var(--espaco-sm); }
+.mt-md{ margin-top: var(--espaco-md); }
+.mt-lg{ margin-top: var(--espaco-lg); }
+.mb-sm{ margin-bottom: var(--espaco-sm); }
+.mb-md{ margin-bottom: var(--espaco-md); }
+.mb-lg{ margin-bottom: var(--espaco-lg); }
+.p-sm{ padding: var(--espaco-sm); }
+.p-md{ padding: var(--espaco-md); }
+.p-lg{ padding: var(--espaco-lg); }

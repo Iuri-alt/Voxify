@@ -1,0 +1,43 @@
+/* ===== RESET ===== */
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: var(--cor-bg);
+    min-height: 100vh;
+    font-family: var(--fonte-primaria);
+    color: var(--texto-principal);
+    overflow-x: hidden;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+ul{
+    list-style: none;
+}
+
+button{
+    font-family: var(--fonte-primaria);
+    cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible{
+    outline: 3px solid rgb(4 51 191 / 35%);
+    outline-offset: 3px;
+}
+
+input, textarea{
+    font-family: var(--fonte-primaria);
+    outline: none;
+}
