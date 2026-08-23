@@ -12,6 +12,10 @@ def required_env(name: str) -> str:
 DATABASE_URL = required_env("DATABASE_URL")
 AZURE_SPEECH_KEY = required_env("AZURE_SPEECH_KEY")
 AZURE_SPEECH_REGION = required_env("AZURE_SPEECH_REGION")
+R2_ACCOUNT_ID = required_env("R2_ACCOUNT_ID")
+R2_ACCESS_KEY_ID = required_env("R2_ACCESS_KEY_ID")
+R2_SECRET_ACCESS_KEY = required_env("R2_SECRET_ACCESS_KEY")
+R2_BUCKET_NAME = required_env("R2_BUCKET_NAME")
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY") or os.getenv("SECRET_KEY")
 
 def get_jwt_secret_key() -> str:

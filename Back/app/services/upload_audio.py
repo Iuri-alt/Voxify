@@ -1,8 +1,7 @@
 import uuid
 from fastapi import UploadFile
-from app.services.supabase import supabase
-
-BUCKET_NAME = "audio"
+from app.services.r2_storage import r2_client
+from app.config import R2_BUCKET_NAME
 
 EXTENSOES_POR_TIPO = {
     "audio/mpeg": "mp3",
@@ -17,15 +16,14 @@ def upload_audio(arquivo: UploadFile) -> str:
     nome_arquivo = f"{uuid.uuid4()}.{extensao}"
     conteudo = arquivo.file.read()
     try:
-        supabase.storage.from_(BUCKET_NAME).upload(
-           path=nome_arquivo,
-           file=conteudo,
-           file_options={
-           "content-type": arquivo.content_type
-           }
+        r2_client.put_object(
+            Bucket=R2_BUCKET_NAME,
+            Key=nome_arquivo,
+            Body=conteudo,
+            ContentType=arquivo.content_type,
         )
     except Exception as error:
-       raise RuntimeError("Falha ao armazenar o áudio.") from error
+        raise RuntimeError("Falha ao armazenar o áudio.") from error
 
-    # Armazena apenas a chave interna. Configure o bucket como privado no Supabase.
+    # Armazena apenas a chave interna. Mantenha o bucket privado no R2.
     return nome_arquivo
