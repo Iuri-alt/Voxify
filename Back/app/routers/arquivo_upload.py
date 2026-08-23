@@ -19,7 +19,7 @@ router = APIRouter(
 
 limitador_upload = RateLimiter(max_tentativas=10, janela_segundos=15 * 60)
 
-MAX_FILE_SIZE = 50 * 1024 * 1024
+MAX_FILE_SIZE = 1024 * 1024 * 1024
 FORMATOS_AUDIO = {
     "audio/mpeg": (".mp3",),
     "audio/wav": (".wav",),
@@ -38,7 +38,7 @@ def validar_audio(arquivo: UploadFile) -> str:
     tamanho = arquivo.file.tell()
     arquivo.file.seek(0)
     if tamanho == 0 or tamanho > MAX_FILE_SIZE:
-        raise HTTPException(status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, detail="O arquivo deve ter entre 1 byte e 50 MB.")
+        raise HTTPException(status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, detail="O arquivo deve ter entre 1 byte e 1 GB.")
     cabecalho = arquivo.file.read(12)
     arquivo.file.seek(0)
     assinatura_valida = (
