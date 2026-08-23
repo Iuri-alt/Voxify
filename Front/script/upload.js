@@ -18,7 +18,7 @@
   const submitFile = async (file) => {
     if (!file) return;
     if (!allowed.includes(file.type) && !/\.(mp3|wav|m4a)$/i.test(file.name)) return setMessage("Selecione um arquivo MP3, WAV ou M4A.");
-    if (file.size > 100 * 1024 * 1024) return setMessage("O arquivo deve ter no máximo 100 MB.");
+    if (file.size > 50 * 1024 * 1024) return setMessage("O arquivo deve ter no máximo 50 MB.");
 
     const formData = new FormData();
     formData.append("arquivo", file);

@@ -1,11 +1,14 @@
 import os
 import time
+import logging
 import tempfile
 import subprocess
 import imageio_ffmpeg
 import azure.cognitiveservices.speech as speechsdk
 from fastapi import UploadFile
 from app.config import AZURE_SPEECH_KEY, AZURE_SPEECH_REGION
+
+logger = logging.getLogger(__name__)
 
 
 def _converter_para_wav(caminho_origem: str) -> str:
@@ -48,27 +51,41 @@ def transcrever_audio(arquivo: UploadFile) -> str:
         
         texto_completo = []
         done = False
+        erro_cancelamento = None
 
         def recognized_handler(evt):
             if evt.result.reason == speechsdk.ResultReason.RecognizedSpeech:
                 if evt.result.text:
                     texto_completo.append(evt.result.text)
+            elif evt.result.reason == speechsdk.ResultReason.NoMatch:
+                logger.warning("Trecho de áudio sem fala reconhecida (NoMatch).")
 
         def stop_handler(evt):
             nonlocal done
             done = True
 
+        def canceled_handler(evt):
+            nonlocal done, erro_cancelamento
+            if evt.reason == speechsdk.CancellationReason.Error:
+                erro_cancelamento = f"{evt.error_code}: {evt.error_details}"
+                logger.error("Reconhecimento cancelado por erro: %s", erro_cancelamento)
+            done = True
+
         speech_recognizer.recognized.connect(recognized_handler)
         speech_recognizer.session_stopped.connect(stop_handler)
-        speech_recognizer.canceled.connect(stop_handler)
+        speech_recognizer.canceled.connect(canceled_handler)
 
         speech_recognizer.start_continuous_recognition()
-        
+
         # Aguarda a conclusão da transcrição contínua
         while not done:
             time.sleep(0.2)
-            
+
         speech_recognizer.stop_continuous_recognition()
+
+        if erro_cancelamento:
+            raise RuntimeError(f"Azure cancelou o reconhecimento: {erro_cancelamento}")
+
         return " ".join(texto_completo).strip()
 
     finally:
